@@ -6,11 +6,11 @@
  * Time: 14:53 ÷.
  */
 
-class TPLhome extends Template {
+class TPLcv extends Template {
     protected $table = 'comments';
 
     protected function Title() {
-        return "index";
+        return "Home";
     }
 
     protected function Body() {
