@@ -9,7 +9,7 @@
 class Template {
 
     public function getParam() {
-        
+
     }
 
     protected function Title() {
