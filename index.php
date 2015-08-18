@@ -5,7 +5,7 @@ ob_start();
 require_once('classes/autoloader.class.php');
 
 try{
-    $loadClass = "TPLhome";
+    $loadClass = "TPLcv";
     if(isset($_GET['page']) && !empty($_GET['page'])) {
         $loadClass = "TPL{$_GET['page']}";
     }
