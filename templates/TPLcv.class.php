@@ -7,27 +7,29 @@
  */
 
 class TPLcv extends Template {
-    protected $table = 'comments';
+//    protected $table = 'personalData';
 
     private function insertParams() {
         //Array to be inserted into DB;
         $insertParams = array();
 
-        //Names
-        $insertParams['fname'] = $this->aParam['fname'];
-        $insertParams['mname'] = $this->aParam['mname'];
-        $insertParams['lname'] = $this->aParam['lname'];
+        if(isset($_POST['submit'])) {
+            //Names
+            $insertParams['fname'] = $this->aParam['fname'];
+            $insertParams['mname'] = $this->aParam['mname'];
+            $insertParams['lname'] = $this->aParam['lname'];
 
-        //Contacts;
-        $insertParams['email'] = $this->aParam['email'];
-        $insertParams['phoneNumber'] = $this->aParam['phoneNumber'];
+            //Contacts;
+            $insertParams['email'] = $this->aParam['email'];
+            $insertParams['phoneNumber'] = $this->aParam['phoneNumber'];
 
-        //BirthDate and Nationality;
-        $insertParams['dateOfBirth'] = $this->aParam['dateOfBirth'];
-        $insertParams['nationality'] = $this->aParam['nationality'];
+            //BirthDate and Nationality;
+            $insertParams['dateOfBirth'] = $this->aParam['dateOfBirth'];
+            $insertParams['nationality'] = $this->aParam['nationality'];
 
 
-        return $insertParams;
+            return $insertParams;
+        }
 
     }
 
@@ -41,21 +43,25 @@ class TPLcv extends Template {
 
         $valueConcatArray = array();
         foreach($this->insertParams() as $key=>$value) {
-            $valueConcatArray[] = " :".$value ;
+            $valueConcatArray[] = " :".$key ;
         }
         $valueParam = implode(',', $valueConcatArray);
 
         //Insert into DB personal data;
         $db = new Connect('documenti','personalData');
         $connect = $db->connect->prepare("INSERT INTO "
-                                            .$this->table." (".$keyParam.")
+                                            .$db->table." (".$keyParam.")
 												VALUES(".$valueParam.")");
 
         $connect->execute($this->insertParams());
+        if($connect->execute($this->insertParams())) {
+            echo 'ok';
+        }else {
+            echo  'ops';
+        }
 
-        var_dump($this->insertParams());
-        var_dump($keyParam);
-        var_dump($valueParam);
+
+
 
         ?>
         <form action="" method="post">
