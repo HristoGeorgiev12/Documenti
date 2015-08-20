@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: Georgievi
- * Date: 17.8.2015 г.
- * Time: 14:53 ч.
+ * Date: 17.8.2015 пїЅ.
+ * Time: 14:53 пїЅ.
  */
 
 class TPLcv extends Template {
@@ -34,78 +34,32 @@ class TPLcv extends Template {
     }
 
     protected function Title() {
-        return "Home";
+        return "CV Template";
     }
 
     protected function Body() {
-        //Implode keys and values;
-        $keyParam = implode(', ', array_keys($this->insertParams()));
-
-        $valueConcatArray = array();
-        foreach($this->insertParams() as $key=>$value) {
-            $valueConcatArray[] = " :".$key ;
-        }
-        $valueParam = implode(',', $valueConcatArray);
-
         //Insert into DB personal data;
         $db = new Connect('documenti','personalData');
+
+        $connectInsert = $db->implodeInsertedData($this->insertParams());
+        $keyParam = $connectInsert[0];
+        $valueParam = $connectInsert[1];
+
+
         $connect = $db->connect->prepare("INSERT INTO "
                                             .$db->table." (".$keyParam.")
 												VALUES(".$valueParam.")");
-
         $connect->execute($this->insertParams());
-        if($connect->execute($this->insertParams())) {
-            echo 'ok';
-        }else {
-            echo  'ops';
-        }
-
-
 
 
         ?>
         <form action="" method="post">
-            <h3>Лична информация</h3>
-            <div id="PersonalInformation">
-                Име<input type="text"
-                          name="fname"
-                          pattern="[А-Яа-я]{2,12}"
-                          title="Използвайте само Кирилица!"
-                          required><br>
-
-                Презиме<input type="text"
-                              name="mname"
-                              pattern="[А-Яа-я]{2,12}"
-                              title="Използвайте само Кирилица!"
-                              required><br>
-
-                Фамилия<input type="text"
-                              name="lname"
-                              pattern="[А-Яа-я]{2,12}"
-                              title="Използвайте само Кирилица!"
-                              required><br><hr>
-
-                Електронна поща<input type="email"
-                                      title="Грешна форма на email формата."
-                                      name="email"
-                                      required><br>
-
-                Телефонен номер<input type="number"
-                                      name="phoneNumber"
-                                      title="Въведете телефонен номер."
-                                      required><br><hr>
-
-                Национаност<input type="text"
-                                      name="nationality"
-                                      title="Въведете националноста си."
-                                      required><br>
-
-                Дата на раждане<input type="date"
-                                      name="dateOfBirth"
-                                      title="Изберете рожденната си дата."
-                                      required><br><hr>
-
-            </div>
+            <h3>Р›РёС‡РЅР° РёРЅС„РѕСЂРјР°С†РёСЏ</h3>
+            <?php
+            $this->personalData();
+            $this->contactData();
+            $this->birthAndNationality();
+            ?>
             <input type="submit" name="submit">
         </form>
         <?php

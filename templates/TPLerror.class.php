@@ -2,14 +2,14 @@
 /**
  * Created by PhpStorm.
  * User: Georgievi
- * Date: 18.8.2015 ã.
- * Time: 08:36 ÷.
+ * Date: 18.8.2015 ï¿½.
+ * Time: 08:36 ï¿½.
  */
 
 class TPLerror extends Template {
     public function Body() {
         ?>
-            <p>Error message.</p>
+            <p>Error</p>
         <?php
     }
 }
