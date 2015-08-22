@@ -25,6 +25,22 @@ class Template {
         return "index";
     }
 
+    //Recall a function onclick;
+    protected function recall($recallFunction, $recallGetParam) {
+        $addToCounter = $_GET[$recallGetParam] + 1;
+         if(isset($_GET[$recallGetParam])) {
+            for($counter = 1;$counter<$addToCounter;$counter++) {
+                $this->workExperience();
+            }
+         }
+        ?>
+        <a href="<?php echo '?'.$recallGetParam.'='.$addToCounter;?> " >
+            Recall
+        </a>
+        <?php
+
+    }
+
     //Form for personal information only
     protected function personalData() {
         ?>
@@ -46,10 +62,13 @@ class Template {
                           title="Фамилия!"
                           required><br><hr>
 
+
+
         <?php
+
     }
 
-    //Form for Contacts information
+    //Form for contacts information
     protected function contactData() {
         ?>
         Електронна поща<input type="email"
@@ -82,7 +101,52 @@ class Template {
     //Form for work experience only
     protected function workExperience() {
         ?>
+        Име на компанията: <input type="text"
+                                  name="companyName"><br>
 
+        Период<br>
+        От: <input type="date"
+               name="dateFrom">
+        До: <input type="date"
+               name="dateTo"><br>
+
+        Вид на работата: <input type="text"
+                                name="jobType"><br>
+
+        Заемана позиция: <input type="text"
+                                name="jobPost"><br>
+
+        <hr>
+        <?php
+
+    }
+
+    //Form for education only;
+    protected function education() {
+        ?>
+        Име на учебното заведение: <input type="text"
+                                  name="educationInstitution"><br>
+
+        Период<br>
+        От: <input type="date"
+                   name="dateFrom">
+        До: <input type="date"
+                   name="dateTo"><br>
+
+        Завършена специалност: <input type="text"
+                                name="qualificationTitle"><br>
+
+        Образователна степен:
+        <select name="degreeLevel">
+            <option value="">Начална</option>
+            <option value="">Основна</option>
+            <option value="">Средна</option>
+            <option value="">Средна специална</option>
+            <option value="">Професионален Бакалавър</option>
+            <option value="">Бакалавър</option>
+            <option value="">Магистър</option>
+            <option value="">Докторантура</option>
+        </select><br><hr>
         <?php
     }
 
@@ -98,8 +162,6 @@ class Template {
         ?>
         <html>
             <head>
-<!--                <meta charset="ISO-8859-1">-->
-<!--                <meta charset="utf-8">-->
                 <meta charset="utf-8"/>
                 <title> <?php $this->Title(); ?> </title>
             </head>
