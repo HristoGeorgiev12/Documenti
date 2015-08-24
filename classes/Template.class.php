@@ -27,18 +27,20 @@ class Template {
 
     //Recall a function onclick;
     protected function recall($recallFunction, $recallGetParam) {
-        $addToCounter = $_GET[$recallGetParam] + 1;
-         if(isset($_GET[$recallGetParam])) {
+        global $addToCounter;
+        $addToCounter++;
+        if(isset($_GET[$recallGetParam])) {
+            $addToCounter += $_GET[$recallGetParam];
             for($counter = 1;$counter<$addToCounter;$counter++) {
-                $this->workExperience();
+              $this->$recallFunction();
             }
-         }
+        }
         ?>
         <a href="<?php echo '?'.$recallGetParam.'='.$addToCounter;?> " >
-            Recall
+            Добави новo поле.
         </a>
         <?php
-
+        $addToCounter = null;
     }
 
     //Form for personal information only
@@ -102,23 +104,35 @@ class Template {
     protected function workExperience() {
         ?>
         Име на компанията: <input type="text"
-                                  name="companyName"><br>
-
+                                  name="companyName"
+                                  pattern="[А-Яа-я]{2,12}"
+                                  title="Име на компанията!"
+                                  required><br>
         Период<br>
         От: <input type="date"
-               name="dateFrom">
+                   name="dateFrom"
+                   title=""
+                   required>
+
         До: <input type="date"
-               name="dateTo"><br>
+                   name="dateTo"
+                   title=""
+                   required><br>
 
         Вид на работата: <input type="text"
-                                name="jobType"><br>
+                                name="jobType"
+                                pattern="[А-Яа-я]{2,12}"
+                                title="Име на компанията!"
+                                required><br>
 
         Заемана позиция: <input type="text"
-                                name="jobPost"><br>
+                                name="jobPost"
+                                pattern="[А-Яа-я]{2,12}"
+                                title="Име на компанията!"
+                                required><br>
 
         <hr>
         <?php
-
     }
 
     //Form for education only;
@@ -138,14 +152,14 @@ class Template {
 
         Образователна степен:
         <select name="degreeLevel">
-            <option value="">Начална</option>
-            <option value="">Основна</option>
-            <option value="">Средна</option>
-            <option value="">Средна специална</option>
-            <option value="">Професионален Бакалавър</option>
-            <option value="">Бакалавър</option>
-            <option value="">Магистър</option>
-            <option value="">Докторантура</option>
+            <option value="1">Начална</option>
+            <option value="2">Основна</option>
+            <option value="3">Средна</option>
+            <option value="4">Средна специална</option>
+            <option value="5">Професионален Бакалавър</option>
+            <option value="6">Бакалавър</option>
+            <option value="7">Магистър</option>
+            <option value="8">Докторантура</option>
         </select><br><hr>
         <?php
     }
@@ -163,7 +177,7 @@ class Template {
         <html>
             <head>
                 <meta charset="utf-8"/>
-                <title> <?php $this->Title(); ?> </title>
+                <title> <?php echo $this->Title(); ?> </title>
             </head>
             <body>
                 <?php $this->Body(); ?>
