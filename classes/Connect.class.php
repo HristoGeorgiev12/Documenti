@@ -19,19 +19,20 @@ class Connect {
 
     //Insert method;
     public function implodeInsertedData($insertParams) {
-
+    if(isset($insertParams)) {
         //Implode keys;
         $keyParam = implode(', ', array_keys($insertParams));
 
         //Implode values
         $valueConcatArray = array();
-        foreach($insertParams as $key=>$value) {
-            $valueConcatArray[] = " :".$key ;
+        foreach ($insertParams as $key => $value) {
+            $valueConcatArray[] = " :" . $key;
         }
         $valueParam = implode(',', $valueConcatArray);
 
-         $array = array ($keyParam, $valueParam);
+        $array = array($keyParam, $valueParam);
         return $array;
+    }
 
     }
 }
