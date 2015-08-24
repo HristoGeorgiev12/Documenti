@@ -35,12 +35,28 @@ class Template {
               $this->$recallFunction();
             }
         }
+        $getStr = '?'.$recallGetParam.'='.$addToCounter;
         ?>
-        <a href="<?php echo '?'.$recallGetParam.'='.$addToCounter;?> " >
+        <a href="<?php echo $getStr;?> " >
             Добави новo поле.
         </a>
         <?php
         $addToCounter = null;
+    }
+
+    protected function insert($dataBase, $table, $insertArray) {
+        //Insert into DB personal data;
+        $db = new Connect($dataBase,$table);
+
+        $connectInsert = $db->implodeInsertedData($insertArray);
+        $keyParam = $connectInsert[0];
+        $valueParam = $connectInsert[1];
+
+
+        $connect = $db->connect->prepare("INSERT INTO "
+            .$db->table." (".$keyParam.")
+												VALUES(".$valueParam.")");
+        $connect->execute($insertArray);
     }
 
     //Form for personal information only
@@ -139,7 +155,8 @@ class Template {
     protected function education() {
         ?>
         Име на учебното заведение: <input type="text"
-                                  name="educationInstitution"><br>
+                                          name="educationInstitution"
+                                          title="Име на учебното заведение"><br>
 
         Период<br>
         От: <input type="date"
@@ -151,7 +168,7 @@ class Template {
                                 name="qualificationTitle"><br>
 
         Образователна степен:
-        <select name="degreeLevel">
+        <select name="degreeLevel_id">
             <option value="1">Начална</option>
             <option value="2">Основна</option>
             <option value="3">Средна</option>
