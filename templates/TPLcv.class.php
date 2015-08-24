@@ -7,9 +7,8 @@
  */
 
 class TPLcv extends Template {
-//    protected $table = 'personalData';
-
-    private function insertParams() {
+    //Arrays from the inputs;
+    protected function personalDataArray() {
         //Array to be inserted into DB;
         $insertParams = array();
 
@@ -32,25 +31,47 @@ class TPLcv extends Template {
         }
 
     }
+    protected function workExperienceArray() {
+        //Array to be inserted into DB;
+        $insertParams = array();
+
+        if(isset($_POST['submit'])) {
+            //Work experience information;
+            $insertParams['companyName'] = $this->aParam['companyName'];
+            $insertParams['dateFrom'] = $this->aParam['dateFrom'];
+            $insertParams['dateTo'] = $this->aParam['dateTo'];
+            $insertParams['jobType'] = $this->aParam['jobType'];
+            $insertParams['jobPost'] = $this->aParam['jobPost'];
+
+            return $insertParams;
+        }
+    }
+    protected function educationArray() {
+        //Array to be inserted into DB;
+        $insertParams = array();
+
+        if(isset($_POST['submit'])) {
+            //Work experience information;
+            $insertParams['educationInstitution'] = $this->aParam['educationInstitution'];
+            $insertParams['dateFrom'] = $this->aParam['dateFrom'];
+            $insertParams['dateTo'] = $this->aParam['dateTo'];
+            $insertParams['qualificationTitle'] = $this->aParam['qualificationTitle'];
+            $insertParams['degreeLevel_id'] = $this->aParam['degreeLevel_id'];
+
+            return $insertParams;
+        }
+    }
+
 
     protected function Title() {
         return "CV Template";
     }
 
     protected function Body() {
-        //Insert into DB personal data;
-        $db = new Connect('documenti','personalData');
-
-        $connectInsert = $db->implodeInsertedData($this->insertParams());
-        $keyParam = $connectInsert[0];
-        $valueParam = $connectInsert[1];
-
-
-        $connect = $db->connect->prepare("INSERT INTO "
-                                            .$db->table." (".$keyParam.")
-												VALUES(".$valueParam.")");
-        $connect->execute($this->insertParams());
-
+        //Inserts
+        $this->insert('documenti', 'personalData', $this->personalDataArray());
+        $this->insert('documenti', 'workExperience', $this->workExperienceArray());
+        $this->insert('documenti', 'education', $this->educationArray());
 
         ?>
         <form action="" method="post">
@@ -60,6 +81,19 @@ class TPLcv extends Template {
             $this->contactData();
             $this->birthAndNationality();
             ?>
+            <h3>Трудов стаж</h3>
+            <?php
+            $this->workExperience();
+            //recall workExperience method;
+            $this->recall("workExperience",'recallWorkExperience');
+            ?>
+            <h3>Образование</h3>
+            <?php
+            $this->education();
+            //recall education method;
+            $this->recall("education",'recallEducation');
+            ?>
+            <br>
             <input type="submit" name="submit">
         </form>
         <?php
