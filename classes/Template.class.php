@@ -44,8 +44,8 @@ class Template {
         $addToCounter = null;
     }
 
+    //Insert data in the corresponding database and table;
     protected function insert($dataBase, $table, $insertArray) {
-        //Insert into DB personal data;
         $db = new Connect($dataBase,$table);
 
         $connectInsert = $db->implodeInsertedData($insertArray);
@@ -179,6 +179,28 @@ class Template {
             <option value="8">Докторантура</option>
         </select><br><hr>
         <?php
+    }
+
+    //Hobbies form;
+    protected function hobbies() {
+        ?>
+        <h3></h3>
+        Хобита и интереси:
+        <?php
+        //Check boxes for hobbies and interests;
+        $aHobbies = array (
+            'Кино','Театър','Фотография','Четене'
+        );
+
+        foreach($aHobbies as $value) {
+            echo $value."<input type='checkbox'
+                                name='hobbies_list[]'
+                                value=".$value."><br>";
+        }
+
+        echo "<textarea name='otherHobbies'></textarea>";
+//        echo "Други: <input type='text'
+//                            name='otherHobbies'>";
     }
 
     //Body to be overwritten in TPL;
