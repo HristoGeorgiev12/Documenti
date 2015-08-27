@@ -61,6 +61,17 @@ class TPLcv extends Template {
             return $insertParams;
         }
     }
+    protected function hobbiesArray() {
+        $insertParams = array();
+        if(isset($_POST['submit']) && !empty($_POST['hobbies_list'])) {
+            //implode hobbies list to a string;
+            $implodedStr = implode(', ', $_POST['hobbies_list']);
+
+            $insertParams['hobbies'] = $implodedStr;
+            $insertParams['otherHobbies'] = $this->aParam['otherHobbies'];
+            return $insertParams;
+        }
+    }
 
 
     protected function Title() {
@@ -72,6 +83,7 @@ class TPLcv extends Template {
         $this->insert('documenti', 'personalData', $this->personalDataArray());
         $this->insert('documenti', 'workExperience', $this->workExperienceArray());
         $this->insert('documenti', 'education', $this->educationArray());
+        $this->insert('documenti', 'hobbies',$this->hobbiesArray());
 
         ?>
         <form action="" method="post">
@@ -93,7 +105,10 @@ class TPLcv extends Template {
             //recall education method;
             $this->recall("education",'recallEducation');
             ?>
-            <br>
+            <br><hr>
+            <?php $this->hobbies();
+            ?>
+            <br><hr>
             <input type="submit" name="submit">
         </form>
         <?php
