@@ -120,29 +120,29 @@ class Template {
     protected function workExperience() {
         ?>
         Име на компанията: <input type="text"
-                                  name="companyName"
+                                  name="companyName[]"
                                   pattern="[А-Яа-я]{2,12}"
                                   title="Име на компанията!"
                                   required><br>
         Период<br>
         От: <input type="date"
-                   name="dateFrom"
+                   name="dateFrom[]"
                    title=""
                    required>
 
         До: <input type="date"
-                   name="dateTo"
+                   name="dateTo[]"
                    title=""
                    required><br>
 
         Вид на работата: <input type="text"
-                                name="jobType"
+                                name="jobType[]"
                                 pattern="[А-Яа-я]{2,12}"
                                 title="Име на компанията!"
                                 required><br>
 
         Заемана позиция: <input type="text"
-                                name="jobPost"
+                                name="jobPost[]"
                                 pattern="[А-Яа-я]{2,12}"
                                 title="Име на компанията!"
                                 required><br>
@@ -199,8 +199,6 @@ class Template {
         }
 
         echo "<textarea name='otherHobbies'></textarea>";
-//        echo "Други: <input type='text'
-//                            name='otherHobbies'>";
     }
 
     //Body to be overwritten in TPL;

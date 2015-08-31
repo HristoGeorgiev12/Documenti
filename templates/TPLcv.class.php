@@ -33,17 +33,24 @@ class TPLcv extends Template {
     }
     protected function workExperienceArray() {
         //Array to be inserted into DB;
+        global $insertParams;
         $insertParams = array();
 
         if(isset($_POST['submit'])) {
-            //Work experience information;
-            $insertParams['companyName'] = $this->aParam['companyName'];
-            $insertParams['dateFrom'] = $this->aParam['dateFrom'];
-            $insertParams['dateTo'] = $this->aParam['dateTo'];
-            $insertParams['jobType'] = $this->aParam['jobType'];
-            $insertParams['jobPost'] = $this->aParam['jobPost'];
+            $getParam = $_GET['recallWorkExperience'];
+            for($i=0;$i<=$getParam;$i++) {
+                //Work experience information;
+                $insertParams['companyName'] = $this->aParam['companyName'][$i];
+                $insertParams['dateFrom'] = $this->aParam['dateFrom'][$i];
+                $insertParams['dateTo'] = $this->aParam['dateTo'][$i];
+                $insertParams['jobType'] = $this->aParam['jobType'][$i];
+                $insertParams['jobPost'] = $this->aParam['jobPost'][$i];
 
-            return $insertParams;
+                $this->insert('documenti', 'workExperience', $insertParams);
+
+            }
+//            return $insertParams;
+            return var_dump($insertParams);
         }
     }
     protected function educationArray() {
@@ -79,9 +86,12 @@ class TPLcv extends Template {
     }
 
     protected function Body() {
+        echo $this->workExperienceArray();
+        var_dump($_POST['dateTo']);
+        var_dump($this->aParam['dateOfBirth']);
         //Inserts
         $this->insert('documenti', 'personalData', $this->personalDataArray());
-        $this->insert('documenti', 'workExperience', $this->workExperienceArray());
+//        $this->insert('documenti', 'workExperience', $this->workExperienceArray());
         $this->insert('documenti', 'education', $this->educationArray());
         $this->insert('documenti', 'hobbies',$this->hobbiesArray());
 
