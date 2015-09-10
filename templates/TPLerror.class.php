@@ -7,9 +7,13 @@
  */
 
 class TPLerror extends Template {
+    public function Title() {
+        return "Errors";
+    }
+
     public function Body() {
         ?>
-            <p>Error</p>
+            <p>Errorssssssssssssssssss</p>
         <?php
     }
 }

@@ -10,6 +10,9 @@ class Template {
     //array of parameters;
     protected $aParam = array();
 
+    public $pdf=0;
+
+
     //check if GET isset or not;
     public function getParam($key) {
         return isset($this->aParam[$key])? $this->aParam[$key] : "";
@@ -35,9 +38,9 @@ class Template {
               $this->$recallFunction();
             }
         }
-        $getStr = '?'.$recallGetParam.'='.$addToCounter;
+//        $getStr = '?'.$recallGetParam.'='.$addToCounter;
         ?>
-        <a href="<?php echo $getStr;?> " >
+<!--        <a href="--><?php //echo $getStr;?><!-- " >-->
             Добави новo поле.
         </a>
         <?php
@@ -58,6 +61,26 @@ class Template {
 												VALUES(".$valueParam.")");
         $connect->execute($insertArray);
     }
+
+     //Login form:
+    public function login() {
+        ?>
+            Email: <input type="email"
+                          name="loginEmail"
+                          required><br>
+
+            Password: <input type="password"
+                             name="loginPassword"
+                             required><br>
+
+            <input type="submit"
+                   name="loginSubmit"
+                   value="Submit"><br>
+
+            <a href="TPLcreateAccount.class.php">Create Account</a><br><hr>
+        <?php
+    }
+
 
     //Form for personal information only
     protected function personalData() {
@@ -126,12 +149,12 @@ class Template {
                                   required><br>
         Период<br>
         От: <input type="date"
-                   name="dateFrom[]"
+                   name="dateFromWork[]"
                    title=""
                    required>
 
         До: <input type="date"
-                   name="dateTo[]"
+                   name="dateToWork[]"
                    title=""
                    required><br>
 
@@ -155,20 +178,20 @@ class Template {
     protected function education() {
         ?>
         Име на учебното заведение: <input type="text"
-                                          name="educationInstitution"
+                                          name="educationInstitution[]"
                                           title="Име на учебното заведение"><br>
 
         Период<br>
         От: <input type="date"
-                   name="dateFrom">
+                   name="dateFromEducation[]">
         До: <input type="date"
-                   name="dateTo"><br>
+                   name="dateToEducation[]"><br>
 
         Завършена специалност: <input type="text"
-                                name="qualificationTitle"><br>
+                                name="qualificationTitle[]"><br>
 
         Образователна степен:
-        <select name="degreeLevel_id">
+        <select name="degreeLevel_id[]">
             <option value="1">Начална</option>
             <option value="2">Основна</option>
             <option value="3">Средна</option>
@@ -210,6 +233,9 @@ class Template {
 
     //Main HTML structure;
     public function HTML() {
+        if($this->pdf) {
+            $this->HTMLpdf();
+        }
         ?>
         <html>
             <head>
@@ -217,10 +243,19 @@ class Template {
                 <title> <?php echo $this->Title(); ?> </title>
             </head>
             <body>
-                <?php $this->Body(); ?>
+                <?php
+//                $this->login();
+                $this->Body();
+                ?>
             </body>
 
         </html>
         <?php
+
+
+    }
+
+    public function HTMLpdf() {
+        $this->Body();
     }
 }
