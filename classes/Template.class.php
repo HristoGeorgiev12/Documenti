@@ -62,25 +62,73 @@ class Template {
         $connect->execute($insertArray);
     }
 
+    //Select
+    protected function select($dataBase,$table,$insertArray) {
+        $db = new Connect($dataBase,$table);
+
+        $connect = $db->connect->prepare("SELECT *
+                                          FROM ".$table."
+                                          WHERE userEmail='".$insertArray['userEmail']."'
+                                          AND userPassword='".$insertArray['userPassword']."'");
+        $connect->execute();
+        return $connect->fetchAll();
+    }
+
      //Login form:
-    public function login() {
+    public function loginForm() {
         ?>
+            <form action="?page=login" method="post">
             Email: <input type="email"
-                          name="loginEmail"
+                          name="emailLogin"
                           required><br>
 
             Password: <input type="password"
-                             name="loginPassword"
+                             name="passwordLogin"
                              required><br>
 
             <input type="submit"
-                   name="loginSubmit"
-                   value="Submit"><br>
-
-            <a href="TPLcreateAccount.class.php">Create Account</a><br><hr>
+                   name="submitLogin"
+                   value="Зареди профила"><br>
+            </form>
+            <a href="?page=registration">Създай профил</a><br><hr>
         <?php
     }
 
+    //LogOut form;
+    public function logOutForm() {
+        if(isset($_SESSION['successfulLogin'])) {
+            ?>
+
+            <form action="?page=login" method="post">
+                <input type="submit"
+                           name="submitLogout"
+                           value="Излез от профила"><br>
+            </form>
+            <?php
+        }
+    }
+
+    //registration form;
+    protected function registration() {
+    ?>
+    <h3>Регистрация</h3>
+    <form action="" method="post">
+    Емайл адрес: <input type="email"
+           name="userEmail"
+           required><br>
+    Парола: <input type="password"
+           name="userPassword"
+           required><br>
+    Повтори парола: <input type="password"
+           name="userPasswordConfirm"
+           required><br>
+    <input type="submit"
+           name="submitRegistration"
+           value="Регистрирай ме"
+           required>
+    </form>
+    <?php
+    }
 
     //Form for personal information only
     protected function personalData() {
@@ -244,7 +292,12 @@ class Template {
             </head>
             <body>
                 <?php
-//                $this->login();
+                if(isset($_SESSION['successfulLogin'])) {
+                     echo "Hi,".$_SESSION['successfulLogin'];
+                     $this->logOutForm();
+                }else {
+                    $this->loginForm();
+                }
                 $this->Body();
                 ?>
             </body>
