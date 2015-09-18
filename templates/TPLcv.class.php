@@ -14,6 +14,7 @@ class TPLcv extends Template {
 
     protected function Body() {
 
+
         ?>
         <form action="?page=html2pdf" method="post">
             <h3>Лична информация</h3>
@@ -21,23 +22,23 @@ class TPLcv extends Template {
             $this->personalData();
             $this->contactData();
             $this->birthAndNationality();
-//            ?>
-<!--            <h3>Трудов стаж</h3>-->
-<!--            --><?php
-//            $this->workExperience();
-//            //recall workExperience method;
-//            $this->recall("workExperience",'recallWorkExperience');
-//            ?>
-<!--            <h3>Образование</h3>-->
-<!--            --><?php
-//            $this->education();
-//            //recall education method;
-//            $this->recall("education",'recallEducation');
-//            ?>
-<!--            <br><hr>-->
-<!--            --><?php //$this->hobbies();
-//            ?>
-<!--            <br><hr>-->
+            ?>
+            <h3>Трудов стаж</h3>
+            <?php
+            $this->workExperience();
+            //recall workExperience method;
+            $this->recallWork("workExperience",'recallWorkExperience');
+            ?>
+            <h3>Образование</h3>
+            <?php
+            $this->education();
+            //recall education method;
+            $this->recallEducation("education",'recallEducation');
+            ?>
+            <br><hr>
+            <?php $this->hobbies();
+            ?>
+            <br><hr>
             <input type="submit" name="submit">
         </form>
         <?php

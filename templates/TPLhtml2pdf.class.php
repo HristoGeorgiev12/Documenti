@@ -3,7 +3,7 @@
 
 
 class TPLhtml2pdf extends TPLcv {
-    public $pdf = true;
+    public $pdf = false;
 
     //Insert arrays into DB;
     protected function insertPersonalDataArray() {
@@ -34,29 +34,54 @@ class TPLhtml2pdf extends TPLcv {
     protected function insertWorkExperienceArray() {
         //Array to be inserted into DB;
         if(isset($_POST['submit'])) {
-            $getParam = $_GET['recallWorkExperience'];
-            for($i=0;$i<=$getParam;$i++) {
-                $insertParams = array();
+            //TODO: add get variable in html2pdf;
+//            if(isset($_GET['recallWorkExperience'])) {
+//                $getParam = $_GET['recallWorkExperience'];
+//            }else {
+//                $getParam = 0;
+//            }
+            $insertParams = array();
+            $getRecallParam = array();
 
-                //Work experience information;
-                $insertParams['companyName'] = $this->aParam['companyName'][$i];
-                $insertParams['dateFrom'] = $this->aParam['dateFromWork'][$i];
-                $insertParams['dateTo'] = $this->aParam['dateToWork'][$i];
-                $insertParams['jobType'] = $this->aParam['jobType'][$i];
-                $insertParams['jobPost'] = $this->aParam['jobPost'][$i];
+                $countArrayElements = count($this->aParam['companyName']) - 1;
+                for($i=0;$i<=$countArrayElements;$i++) {
 
-                $this->insert('documenti', 'workExperience', $insertParams);
+                   //Work experience information;
+                    $insertParams['companyName'] = $this->aParam['companyName'][$i];
+                    $insertParams['dateFrom'] = $this->aParam['dateFromWork'][$i];
+                    $insertParams['dateTo'] = $this->aParam['dateToWork'][$i];
+                    $insertParams['jobType'] = $this->aParam['jobType'][$i];
+                    $insertParams['jobPost'] = $this->aParam['jobPost'][$i];
 
-            }
+                    $this->insert('documenti', 'workExperience', $insertParams);
+
+                    $getRecallParam[$i] = $insertParams;
+
+
+                }
+
+            return $getRecallParam;
+
+
         }
+
     }
     protected function insertEducationArray() {
         //Array to be inserted into DB;
         if(isset($_POST['submit'])) {
-            $getParam = $_GET['recallEducation'];
-            for($i=0;$i<=$getParam;$i++) {
+//            if(isset($_GET['recallEducation'])){
+//                $getParam = $_GET['recallEducation'];
+//            }else {
+//                $getParam = 0;
+//            }
+            $insertParams = array();
+            $getRecallParam = array();
 
-                $insertParams = array();
+            $countArrayElements = count($this->aParam['educationInstitution']) - 1;
+
+            for($i=0;$i<=$countArrayElements;$i++) {
+
+
 
                 //Work experience information;
                 $insertParams['educationInstitution'] = $this->aParam['educationInstitution'][$i];
@@ -65,8 +90,13 @@ class TPLhtml2pdf extends TPLcv {
                 $insertParams['qualificationTitle'] = $this->aParam['qualificationTitle'][$i];
                 $insertParams['degreeLevel_id'] = $this->aParam['degreeLevel_id'][$i];
 
+                $getRecallParam[$i] = $insertParams;
+
                 $this->insert('documenti', 'education', $insertParams);
+
             }
+
+            return $getRecallParam;
         }
     }
     protected function insertHobbiesArray() {
@@ -81,6 +111,7 @@ class TPLhtml2pdf extends TPLcv {
             //Insert array into DB;
             $this->insert('documenti', 'hobbies', $insertParams);
         }
+        return $insertParams;
     }
 
     //TODO: change the whole method;
@@ -88,11 +119,22 @@ class TPLhtml2pdf extends TPLcv {
         if(isset($_POST['submit'])) {
 
             //TODO: to execute insert method only once;
-        $contentArray = $this->insertPersonalDataArray();
+            $personalData = implode('<br>', $this->insertPersonalDataArray());
+            $workData = implode('<br>', $this->insertWorkExperienceArray());
+//            $educationData = implode('<br>', $this->insertEducationArray());
+//            $hobbiesData = implode('<br>', $this->insertHobbiesArray());
 
-        $result = implode(',',$contentArray);
 
-        return $result;
+        return "<h4>Лична Информация</h4><br>
+                {$personalData}<br><hr>
+                <h4>Стаж </h4><br>
+                {$workData}<br><hr>";
+//                <h4> Образование</h4><br>
+//                {$educationData}<br><hr>
+//                <h4>Интереси</h4><br>
+//                {$hobbiesData}<br><hr>
+
+
         }
 
     }
@@ -102,6 +144,9 @@ class TPLhtml2pdf extends TPLcv {
     }
 
     protected function Body() {
+
+        var_dump($this->insertWorkExperienceArray());
+        var_dump($this->insertEducationArray());
 
         ob_start();
         $content = $this->implodeHtml2Pdf();

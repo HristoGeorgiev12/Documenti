@@ -28,23 +28,59 @@ class Template {
         return "index";
     }
 
-    //Recall a function onclick;
-    protected function recall($recallFunction, $recallGetParam) {
-        global $addToCounter;
-        $addToCounter++;
-        if(isset($_GET[$recallGetParam])) {
-            $addToCounter += $_GET[$recallGetParam];
-            for($counter = 1;$counter<$addToCounter;$counter++) {
-              $this->$recallFunction();
-            }
+
+    //Recall a HTML WOrk Form;
+    protected function recallWork($recallFunction, $recallGetParam) {
+        if(!isset($_GET['recallWorkExperience'])&&!isset($_GET['recallWorkExperience'])) {
+            $addToWork = 1;
+            $addToEducation = 0;
+        }elseif(isset($_GET['recallWorkExperience'])) {
+            $addToEducation = $_GET['recallEducation'];
+            $addToWork = $_GET['recallWorkExperience'];
+
+            $addToWork++;
+
+
+                for ($counter = 1; $counter < $addToWork; $counter++) {
+//                    $this->$recallFunction();
+                    $this->workExperience();
+                }
+
         }
-//        $getStr = '?'.$recallGetParam.'='.$addToCounter;
+
         ?>
-<!--        <a href="--><?php //echo $getStr;?><!-- " >-->
+        <a href="<?php echo '?recallWorkExperience=' . $addToWork . '&&recallEducation=' . $addToEducation; ?> ">
             Добави новo поле.
         </a>
         <?php
-        $addToCounter = null;
+
+    }
+
+    //Recall a HTML Education Form;
+    protected function recallEducation($recallFunction, $recallGetParam) {
+        if(!isset($_GET['recallWorkExperience'])&&!isset($_GET['recallWorkExperience'])) {
+            $addToWork = 0;
+            $addToEducation = 1;
+        }elseif(isset($_GET['recallWorkExperience'])) {
+            $addToEducation = $_GET['recallEducation'];
+            $addToWork = $_GET['recallWorkExperience'];
+
+            $addToEducation++;
+
+
+            for ($counter = 1; $counter < $addToEducation; $counter++) {
+//                    $this->$recallFunction();
+                $this->education();
+            }
+
+        }
+
+        ?>
+        <a href="<?php echo '?recallWorkExperience=' . $addToWork . '&&recallEducation=' . $addToEducation; ?> ">
+            Добави новo поле.
+        </a>
+        <?php
+
     }
 
     //Insert data in the corresponding database and table;
@@ -73,6 +109,14 @@ class Template {
         $connect->execute();
         return $connect->fetchAll();
     }
+
+    //Check the account;
+	protected function account_trim($input){
+		$input = trim($input);
+		$input = stripslashes($input);
+		$input = htmlspecialchars($input);
+		return $input;
+	}
 
      //Login form:
     public function loginForm() {
