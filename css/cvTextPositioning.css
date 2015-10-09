@@ -1,0 +1,23 @@
+#container
+{
+    height:400px;
+    width:400px;
+    position:relative;
+}
+
+#image
+{
+    position:absolute;
+    left:0;
+    top:0;
+}
+#names,#contacts,#birthAndNationality
+{
+    z-index:100;
+    position:relative;
+    color:white;
+    font-size:20px;
+    font-weight:bold;
+    left:300px;
+    top:26px;
+}

@@ -28,6 +28,10 @@ class Template {
         return "index";
     }
 
+    //Style Sheet;
+    protected function Style() {
+
+    }
 
     //Recall a HTML WOrk Form;
     protected function recallWork($recallFunction, $recallGetParam) {
@@ -49,7 +53,7 @@ class Template {
         }
 
         ?>
-        <a href="<?php echo '?recallWorkExperience=' . $addToWork . '&&recallEducation=' . $addToEducation; ?> ">
+        <a href="<?php echo '?page=cv&recallWorkExperience=' . $addToWork . '&recallEducation=' . $addToEducation; ?> ">
             Добави новo поле.
         </a>
         <?php
@@ -76,7 +80,7 @@ class Template {
         }
 
         ?>
-        <a href="<?php echo '?recallWorkExperience=' . $addToWork . '&&recallEducation=' . $addToEducation; ?> ">
+        <a href="<?php echo '?page=cv&recallWorkExperience=' . $addToWork . '&recallEducation=' . $addToEducation; ?> ">
             Добави новo поле.
         </a>
         <?php
@@ -105,7 +109,7 @@ class Template {
         $connect = $db->connect->prepare("SELECT *
                                           FROM ".$table."
                                           WHERE userEmail='".$insertArray['userEmail']."'
-                                          AND userPassword='".$insertArray['userPassword']."'");
+                                          AND userPassword='".$insertArray['userPassword']."' LIMIT 1");
         $connect->execute();
         return $connect->fetchAll();
     }
@@ -121,20 +125,41 @@ class Template {
      //Login form:
     public function loginForm() {
         ?>
-            <form action="?page=login" method="post">
-            Email: <input type="email"
-                          name="emailLogin"
-                          required><br>
+<!--            <form action="?page=login" method="post">-->
+<!--            Email: <input type="email"-->
+<!--                          name="emailLogin"-->
+<!--                          required><br>-->
+<!---->
+<!--            Password: <input type="password"-->
+<!--                             name="passwordLogin"-->
+<!--                             required><br>-->
+<!---->
+<!--            <input type="submit"-->
+<!--                   name="submitLogin"-->
+<!--                   value="Зареди профила"><br>-->
+<!--            </form>-->
+        <form action="?page=login" method="post">
+            <fieldset class="account-info">
+                <label>
+                    Username
+                    <input type="email" name="emailLogin">
+                </label>
+                <label>
+                    Password
+                    <input type="password" name="passwordLogin">
+                </label>
+            </fieldset>
+            <fieldset class="account-action">
+                <input class="btn" type="submit" name="submitLogin" value="Зареди профила">
+                <label>
+<!--                    Създай профил-->
+<!--                    <input type="checkbox" name="remember"> Stay signed in-->
+                    <a href="?page=registration">Създай профил</a>
+                </label>
+            </fieldset>
+        </form>
 
-            Password: <input type="password"
-                             name="passwordLogin"
-                             required><br>
-
-            <input type="submit"
-                   name="submitLogin"
-                   value="Зареди профила"><br>
-            </form>
-            <a href="?page=registration">Създай профил</a><br><hr>
+<!--            <a href="?page=registration">Създай профил</a><br><hr>-->
         <?php
     }
 
@@ -155,45 +180,60 @@ class Template {
     //registration form;
     protected function registration() {
     ?>
-    <h3>Регистрация</h3>
-    <form action="" method="post">
-    Емайл адрес: <input type="email"
-           name="userEmail"
-           required><br>
-    Парола: <input type="password"
-           name="userPassword"
-           required><br>
-    Повтори парола: <input type="password"
-           name="userPasswordConfirm"
-           required><br>
-    <input type="submit"
-           name="submitRegistration"
-           value="Регистрирай ме"
-           required>
-    </form>
+<!--    <div id="registrationForm">-->
+        <h3>Регистрация</h3>
+        <form action="" method="post">
+
+               <input type="email"
+               name="userEmail"
+               placeholder="Емайл адрес"
+               required><br>
+
+               <input type="password"
+               name="userPassword"
+               placeholder="Парола"
+               required><br>
+
+               <input type="password"
+               name="userPasswordConfirm"
+               placeholder="Повторни Паролата"
+               required><br>
+
+        <input type="submit"
+               name="submitRegistration"
+               value="Регистрирай ме"
+               required>
+        </form>
+<!--    </div>-->
     <?php
     }
+
+    //TODO: add aoutocomplete to the text inputs;
 
     //Form for personal information only
     protected function personalData() {
         ?>
-            Име<input type="text"
+            <input type="text"
+                    autocomplete="off"
                       name="fname"
                       pattern="[А-Яа-я]{2,12}"
                       title="Име!"
+                      placeholder="Име"
                       required><br>
 
-            Презиме<input type="text"
+            <input type="text" autocomplete='off'
                           name="mname"
                           pattern="[А-Яа-я]{2,12}"
                           title="Презиме!"
+                          placeholder="Презиме"
                           required><br>
 
-            Фамилия<input type="text"
+            <input type="text" autocomplete='off'
                           name="lname"
                           pattern="[А-Яа-я]{2,12}"
                           title="Фамилия!"
-                          required><br><hr>
+                          placeholder="Фамилия"
+                          required><br>
 
 
 
@@ -204,62 +244,76 @@ class Template {
     //Form for contacts information
     protected function contactData() {
         ?>
-        Електронна поща<input type="email"
-                                      title="Въведете email адрес."
-                                      name="email"
-                                      required><br>
+        <input type="email"
+                      title="Въведете email адрес."
+                      name="email"
+                      placeholder="Електронна поща"
+                      required><br>
 
-        Телефонен номер<input type="number"
-                                      name="phoneNumber"
-                                      title="Въведете телефонен номер."
-                                      required><br><hr>
+        <input type="number"
+                      name="phoneNumber"
+                      title="Въведете телефонен номер."
+                      placeholder="Телефонен номер"
+                      required><br>
         <?php
     }
 
     //Form for BirthDate ann Nationality;
     protected function birthAndNationality() {
         ?>
-        Националност<input type="text"
-                           name="nationality"
-                           title="Въведете вашата националност."
-                           required><br>
+        <input type="text" autocomplete='off'
+               name="nationality"
+               title="Въведете вашата националност."
+               placeholder="Националност"
+               required><br>
 
-        Дата на раждане<input type="date"
-                              name="dateOfBirth"
-                              title="Въведете дата на раждане."
-                              required><br><hr>
+
+<!--               onfocus="(this.type='date')"-->
+
+        <span class="spanStyle">Родженна Дата:</span> <input type="date" autocomplete='off'
+                name="dateOfBirth"
+                title="Въведете дата на раждане."
+                placeholder="Дата на раждане"
+                required><br>
         <?php
     }
 
     //Form for work experience only
     protected function workExperience() {
         ?>
-        Име на компанията: <input type="text"
-                                  name="companyName[]"
-                                  pattern="[А-Яа-я]{2,12}"
-                                  title="Име на компанията!"
-                                  required><br>
-        Период<br>
-        От: <input type="date"
+        <input type="text" autocomplete='off'
+                  name="companyName[]"
+                  pattern="[А-Яа-я]{2,12}"
+                  title="Име на компанията!"
+                  placeholder="Име на компанията"
+                  required><br>
+        <span class="spanStyle">Период:</span><br>
+        <span class="spanStyle">От</span>
+        <input type="date"
                    name="dateFromWork[]"
                    title=""
+                   placeholder=""
                    required>
 
-        До: <input type="date"
+        <span class="spanStyle">До</span>
+        <input type="date"
                    name="dateToWork[]"
                    title=""
+                   placeholder=""
                    required><br>
 
-        Вид на работата: <input type="text"
+         <input type="text" autocomplete='off'
                                 name="jobType[]"
                                 pattern="[А-Яа-я]{2,12}"
                                 title="Име на компанията!"
+                                placeholder="Вид на работата"
                                 required><br>
 
-        Заемана позиция: <input type="text"
+        <input type="text" autocomplete='off'
                                 name="jobPost[]"
                                 pattern="[А-Яа-я]{2,12}"
                                 title="Име на компанията!"
+                                placeholder="Заемана позиция"
                                 required><br>
 
         <hr>
@@ -269,21 +323,28 @@ class Template {
     //Form for education only;
     protected function education() {
         ?>
-        Име на учебното заведение: <input type="text"
+        <input type="text" autocomplete='off'
                                           name="educationInstitution[]"
-                                          title="Име на учебното заведение"><br>
+                                          title="Име на учебното заведение"
+                                          placeholder="Име на учебното заведение"><br>
 
-        Период<br>
-        От: <input type="date"
-                   name="dateFromEducation[]">
-        До: <input type="date"
-                   name="dateToEducation[]"><br>
+        <span class="spanStyle">Период:</span><br>
+        <span class="spanStyle">От</span>
+        <input type="date"
+                   name="dateFromEducation[]"
+                   placeholder="">
+        <span class="spanStyle">До</span>
+        <input type="date"
+                   name="dateToEducation[]"
+                   placeholder=""><br>
 
-        Завършена специалност: <input type="text"
-                                name="qualificationTitle[]"><br>
+        <input type="text" autocomplete='off'
+                                name="qualificationTitle[]"
+                                placeholder="Завършена специалност"><br>
 
-        Образователна степен:
+
         <select name="degreeLevel_id[]">
+            <option value="select" selected disabled>Ниво на образование</option>
             <option value="1">Начална</option>
             <option value="2">Основна</option>
             <option value="3">Средна</option>
@@ -298,22 +359,24 @@ class Template {
 
     //Hobbies form;
     protected function hobbies() {
-        ?>
-        <h3></h3>
-        Хобита и интереси:
-        <?php
+        //return variable;
+        $return = null;
+
         //Check boxes for hobbies and interests;
         $aHobbies = array (
-            'Кино','Театър','Фотография','Четене'
+            'Кино','Театър','Фотография','Четене', 'Спорт', 'Планинарство', 'Риболов'
         );
 
         foreach($aHobbies as $value) {
-            echo $value."<input type='checkbox'
-                                name='hobbies_list[]'
-                                value=".$value."><br>";
+            $return.= "<input type='checkbox' name='hobbies_list[]' value='".$value."'>
+                    <label for='".$value."'>".$value."</label><br>";
         }
 
-        echo "<textarea name='otherHobbies'></textarea>";
+        $return.= "<textarea name='otherHobbiesc'
+                             rows='7'
+                             cols='40'
+                    ></textarea>";
+        return $return;
     }
 
     //Body to be overwritten in TPL;
@@ -329,21 +392,41 @@ class Template {
             $this->HTMLpdf();
         }
         ?>
+        <!DOCTYPE html>
         <html>
             <head>
-                <meta charset="utf-8"/>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!--                <script type="text/javascript">-->
+<!--                    $(document).ready(function(){-->
+<!--                        $('#hobbiesStyle').on( 'click', 'input:checkbox', function () {-->
+<!--                            $( this ).next('label').toggleClass( 'highlight', this.checked);-->
+<!--                        });-->
+<!--                    });-->
+<!--                </script>-->
+                <meta charset="utf-8">
+                <meta content="IE=edge" http-equiv="X-UA-Compatible">
+                <meta content="width=device-width, initial-scale=1" name="viewport">
+<!--                <meta charset="utf-8"/>-->
                 <title> <?php echo $this->Title(); ?> </title>
+<!--                --><?php //$this->Style();?>
+<!--                <link rel="stylesheet" type="text/css" href="css/loginStyleSheet.css">-->
+                <!-- Bootstrap + Font Awesome + Main CSS -->
+        <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/bootstrap.css" rel="stylesheet">
+        <!-- customize this file if needed -->
+        <link href="css/main.css" rel="stylesheet">
             </head>
             <body>
-                <?php
-                if(isset($_SESSION['successfulLogin'])) {
-                     echo "Hi,".$_SESSION['successfulLogin'];
-                     $this->logOutForm();
-                }else {
-                    $this->loginForm();
-                }
+<!--                --><?php
+//                if(isset($_SESSION['successfulLogin'])) {
+//                     echo "Hi,".$_SESSION['successfulLogin'];
+//                     $this->logOutForm();
+//                }else {
+//                    $this->loginForm();
+//                }
                 $this->Body();
                 ?>
+
             </body>
 
         </html>

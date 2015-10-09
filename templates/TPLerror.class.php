@@ -14,6 +14,7 @@ class TPLerror extends Template {
     public function Body() {
         ?>
             <p>Errorssssssssssssssssss</p>
+        <img src="images/404_man.jpg" alt="Error image" width="auto" height="auto">
         <?php
     }
 }
