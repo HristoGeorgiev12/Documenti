@@ -115,10 +115,14 @@ background: #fff;}
 	display: inline-block;
 }
 
-#forgottenPassword{
+#registrationLink {
 	margin-left:20px;
-	color: #ff2507;
+	color: #ff9300;
 	float:right;
+}
+
+#registrationLink:hover {
+    color: #1eadef;
 }
 
 #loginBorder{
@@ -173,6 +177,10 @@ input[type="submit"] {
     letter-spacing: 2px;
     font-size: 20px;
     padding-right: 120px;
+}
+
+#readyButton:hover {
+    color:  #ff9300;
 }
 
 input:focus, input.focus, input:hover, select:hover, select:focus {
@@ -245,6 +253,7 @@ select:focus, select:hover {
 textarea {
     margin-left: 10px;
     color: #1eadef;
+    resize: none;
 }
 
 /*Specifies the width of the input form containers*/
@@ -258,6 +267,13 @@ textarea {
     display: block;
     margin-left: auto;
     margin-right: auto;
+    resize: none;
+    color: black;
+}
+
+#shareIdeasWithUsTextarea:hover,
+#shareIdeasWithUsTextarea:focus {
+    border-color: #ff9300;
 }
 
 #shareIdeasWithUsHead, #shareIdeasWithUsSubmit {

@@ -30,7 +30,12 @@ class Template {
 
     //Style Sheet;
     protected function Style() {
-
+        ?>
+            <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+            <link href="css/bootstrap.css" rel="stylesheet">
+            <!-- customize this file if needed -->
+            <link href="css/main.css" rel="stylesheet">
+        <?php
     }
 
     //Recall a HTML WOrk Form;
@@ -216,21 +221,21 @@ class Template {
             <input type="text"
                     autocomplete="off"
                       name="fname"
-                      pattern="[А-Яа-я]{2,12}"
+                      pattern="[А-Яа-я]{2,30}"
                       title="Име!"
                       placeholder="Име"
                       required><br>
 
             <input type="text" autocomplete='off'
                           name="mname"
-                          pattern="[А-Яа-я]{2,12}"
+                          pattern="[А-Яа-я]{2,30}"
                           title="Презиме!"
                           placeholder="Презиме"
                           required><br>
 
             <input type="text" autocomplete='off'
                           name="lname"
-                          pattern="[А-Яа-я]{2,12}"
+                          pattern="[А-Яа-я]{2,30}"
                           title="Фамилия!"
                           placeholder="Фамилия"
                           required><br>
@@ -283,9 +288,15 @@ class Template {
         ?>
         <input type="text" autocomplete='off'
                   name="companyName[]"
-                  pattern="[А-Яа-я]{2,12}"
+                  pattern="[А-Яа-я]{2,30}"
                   title="Име на компанията!"
                   placeholder="Име на компанията"
+                  required><br>
+        <input type="text" autocomplete='off'
+                  name="companyPosition[]"
+                  pattern="[А-Яа-я]{2,30}"
+                  title="Местоположение на работодателят!"
+                  placeholder="Местоположение на работодателят"
                   required><br>
         <span class="spanStyle">Период:</span><br>
         <span class="spanStyle">От</span>
@@ -302,21 +313,27 @@ class Template {
                    placeholder=""
                    required><br>
 
-         <input type="text" autocomplete='off'
-                                name="jobType[]"
-                                pattern="[А-Яа-я]{2,12}"
-                                title="Име на компанията!"
-                                placeholder="Вид на работата"
-                                required><br>
+<!--         <input type="text" autocomplete='off'-->
+<!--                                name="jobType[]"-->
+<!--                                pattern="[А-Яа-я]{2,30}"-->
+<!--                                title="Име на компанията!"-->
+<!--                                placeholder="Отговорности"-->
+<!--                                required><br>-->
+
+
 
         <input type="text" autocomplete='off'
                                 name="jobPost[]"
-                                pattern="[А-Яа-я]{2,12}"
+                                pattern="[А-Яа-я]{2,30}"
                                 title="Име на компанията!"
-                                placeholder="Заемана позиция"
+                                placeholder="Заемана длъжност"
                                 required><br>
 
-        <hr>
+        <textarea id="responsibilities" name='otherHobbies[]'
+                            placeholder="Отговарях за..."
+                             rows='3'
+                             cols='40'
+                    ></textarea>
         <?php
     }
 
@@ -372,7 +389,7 @@ class Template {
                     <label for='".$value."'>".$value."</label><br>";
         }
 
-        $return.= "<textarea name='otherHobbiesc'
+        $return.= "<textarea name='otherHobbies'
                              rows='7'
                              cols='40'
                     ></textarea>";
@@ -386,6 +403,110 @@ class Template {
         <?php
     }
 
+    protected function head() {
+        ?>
+            <div class="wrapper">
+                    <div class="container">
+                        <header>
+                            <div class="row">
+                                <div class="navbar">
+                                    <div class="navbar-header">
+                                        <button class="navbar-toggle collapsed" data-target=".navbar-collapse" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button> <a class="navbar-brand" href="#">Документи.ком</a>
+                                    </div>
+                                    <div class="nav navbar-nav social"  id="float">
+                                        <?php if(isset($_SESSION['successfulLogin'])){
+                                                    echo "Здравей, ".$_SESSION['successfulLogin'];
+                                                    echo "<form action='?page=login' method='post'><input type='submit' name='submitLogout' value='Logout'></form>";
+
+                                                }else {
+                                                    echo'<form name="test" method="post" action="?page=login" id="loginBorder">
+                                                                <input type="email" name="emailLogin" placeholder="Email"><input type="password" name="passwordLogin" placeholder="Password"><br>
+                                                                <input type="submit" name="Login" value="Влез"><a id="registrationLink" href="?page=registration">Регистрирай се</a>
+                            <!--                                    <input type="submit">-->
+                                                            </form>';
+                                                }
+                                        ?>
+                                    </div>
+                                </div><!-- /.navbar -->
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12 col-lg-12">
+                                    <h1 class="intro"><div class="collapse navbar-collapse">
+                                            <ul class="nav navbar-nav">
+                                                <li>
+                                                    <a href="#">Отностно старицата</a>
+                                                </li>
+
+                                                <li>
+                                                    <a href="#">Блог</a>
+                                                </li>
+
+                                                <li>
+                                                    <a href="#contacts">Предложения</a>
+                                                </li>
+
+                                                <li>
+                                                    <a href="#contacts">Контакти</a>
+                                                </li>
+                                            </ul>
+                                            <!--							<div class="nav navbar-nav social"  id="float">-->
+                                            <!--								<div id="loginBorder">-->
+                                            <!--									<input type="email" name="email" placeholder="Email"><input type="password" name="password" placeholder="Password"><br>-->
+                                            <!--								</div>	-->
+                                            <!--								<a href="#">Влизане</a><a id="forgottenPassword" href="#">Забравена Парола</a>-->
+                                            <!--							</div>-->
+
+                                            <!--<ul class="nav navbar-nav social">
+                                                      <li><a href="https://www.facebook.com/hristo.georgiev.5836"> <i class="fa fa-facebook"></i> </a></li>
+                                                      <li><a href="#"> <i class="fa fa-twitter"></i> </a></li>
+                                                      <li><a href="#"> <i class="fa fa-github"></i> </a> </li>
+                                                      <li><a href="#"> <i class="fa fa-linkedin"></i> </a></li>
+                                                      <li><a href="#"> <i class="fa fa-envelope"></i> </a></li>
+                                            </ul>-->
+
+                                        </div><!-- /.nav-collapse --> </span></h1>
+                                </div>
+                            </div>
+                        </header>
+        <?php
+    }
+
+    protected function footer() {
+        ?>
+             <footer>
+                    <div class="container" id="contacts">
+                        <nav class="nav-footer">
+                            <ul>
+                                <li>
+                                    <a href="#">Отностно страницата</a>
+                                </li>
+
+                                <li>
+                                    <a href="#">Блог</a>
+                                </li>
+                            </ul>
+                            <p id="shareIdeasWithUsHead">Свържете се чрез</p>
+                            <ul>
+                                <li><a href="https://www.facebook.com/hristo.georgiev.5836"> <i class="fa fa-facebook"></i> </a></li>
+        <!--                        <li><a href="#"> <i class="fa fa-twitter"></i> </a></li>-->
+                                <li><a href="https://github.com/HristoGeorgiev12"> <i class="fa fa-github"></i> </a> </li>
+        <!--                        <li><a href="#"> <i class="fa fa-linkedin"></i> </a></li>-->
+                                <li><a href="#"> <i class="fa fa-envelope"></i> </a></li>
+                            </ul>
+
+                            <p id="shareIdeasWithUsHead">Споделете ни идеята си.</p>
+                            <textarea id="shareIdeasWithUsTextarea"></textarea>
+                            <input type="submit" name="ideaSubmit" id="shareIdeasWithUsSubmit" value="Изпрати предложението">
+
+                            <p class="credits text-center">&copy; All Rights Reserved 2015</p>
+                        </nav>
+                    </div>
+
+                </footer>
+        <?php
+    }
+
     //Main HTML structure;
     public function HTML() {
         if($this->pdf) {
@@ -396,36 +517,30 @@ class Template {
         <html>
             <head>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<!--                <script type="text/javascript">-->
-<!--                    $(document).ready(function(){-->
-<!--                        $('#hobbiesStyle').on( 'click', 'input:checkbox', function () {-->
-<!--                            $( this ).next('label').toggleClass( 'highlight', this.checked);-->
-<!--                        });-->
-<!--                    });-->
-<!--                </script>-->
                 <meta charset="utf-8">
                 <meta content="IE=edge" http-equiv="X-UA-Compatible">
                 <meta content="width=device-width, initial-scale=1" name="viewport">
 <!--                <meta charset="utf-8"/>-->
                 <title> <?php echo $this->Title(); ?> </title>
+                <?php echo $this->Style();?>
 <!--                --><?php //$this->Style();?>
 <!--                <link rel="stylesheet" type="text/css" href="css/loginStyleSheet.css">-->
                 <!-- Bootstrap + Font Awesome + Main CSS -->
-        <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-        <link href="css/bootstrap.css" rel="stylesheet">
-        <!-- customize this file if needed -->
-        <link href="css/main.css" rel="stylesheet">
+<!--                <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">-->
+<!--                <link href="css/bootstrap.css" rel="stylesheet">-->
+<!--                <!-- customize this file if needed -->
+<!--                <link href="css/main.css" rel="stylesheet">-->
             </head>
             <body>
-<!--                --><?php
-//                if(isset($_SESSION['successfulLogin'])) {
-//                     echo "Hi,".$_SESSION['successfulLogin'];
-//                     $this->logOutForm();
-//                }else {
-//                    $this->loginForm();
-//                }
-                $this->Body();
+                <?php
+                    $this->head();
+                    //Overwrite the content of the body method;
+                    $this->Body();
+
+                    $this->footer();
                 ?>
+
+
 
             </body>
 
