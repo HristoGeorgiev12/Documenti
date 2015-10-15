@@ -113,11 +113,15 @@ class TPLcv extends Template {
             });
 
             $("#callResponsibilities").on('click', function(){
-                $("#responsibilities").parent().append($('#responsibilities').clone());
+                $("#responsibilities").parent().append($('#responsibilities').clone().val(''));
             });
 
             $("#recallWorkExperience").on('click', function(){
-                $("#workExperience").parent().prepend($('#workExperience').clone(true));
+                var clone = $("#workExperience").clone();
+                var clean = clone.find('input').val('');
+                clean.parent().prepend(clone);
+//                parent().prepend($('#workExperience').clone().find('input').val(''));
+
             });
         </script>
         <?php
