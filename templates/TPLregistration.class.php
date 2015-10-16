@@ -13,6 +13,7 @@ class TPLregistration extends Template {
             if($this->aParam['userPassword'] == $this->aParam['userPasswordConfirm']) {
 
                 $insertParams = array();
+                $insertParams['userName'] = $this->aParam['userName'];
                 $insertParams['userEmail'] = $this->aParam['userEmail'];
                 $insertParams['userPassword'] = md5($this->aParam['userPassword']);
 
@@ -27,11 +28,12 @@ class TPLregistration extends Template {
                 }else {
                     return "Вече има създаден профил с този Email адрес.";
                 }
-
-
             }else {
                 return "Въведениете от вас пароли не съвпадат.";
             }
+        }elseif(isset($_POST['returnToPreviousPage'])) {
+            header('Location:index.php');
+            exit;
         }
     }
 
@@ -39,19 +41,23 @@ class TPLregistration extends Template {
         return "This is registration form";
     }
 
+    protected function head() {}
+
+    protected function footer() {}
+
     public function Body() {
         ?>
             <div id="registrationForm">
-        <?php
-//        if(isset($_POST['submitRegistration'])) {
-            //execute insert method and return message;
-            echo $this->insertRegistrationArray();
-//        }
+                <?php
+        //        if(isset($_POST['submitRegistration'])) {
+                    //execute insert method and return message;
+                    echo $this->insertRegistrationArray();
+        //        }
 
-        //registration form;
-        $this->registration();
+                //registration form;
+                $this->registration();
 
-        ?>
+                ?>
             </div>
         <?php
     }

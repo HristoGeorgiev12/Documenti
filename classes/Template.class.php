@@ -116,7 +116,7 @@ class Template {
                                           WHERE userEmail='".$insertArray['userEmail']."'
                                           AND userPassword='".$insertArray['userPassword']."' LIMIT 1");
         $connect->execute();
-        return $connect->fetchAll();
+        return $connect->fetch();
     }
 
     //Check the account;
@@ -189,6 +189,11 @@ class Template {
         <h3>Регистрация</h3>
         <form action="" method="post">
 
+               <input type="text"
+               name="userName"
+               placeholder="Име"
+               required><br>
+
                <input type="email"
                name="userEmail"
                placeholder="Емайл адрес"
@@ -207,13 +212,16 @@ class Template {
         <input type="submit"
                name="submitRegistration"
                value="Регистрирай ме"
-               required>
+               required><br>
+
+        <a href="?page=index" > << Обратно към главната станица.</a>
+
+
         </form>
+
 <!--    </div>-->
     <?php
     }
-
-    //TODO: add aoutocomplete to the text inputs;
 
     //Form for personal information only
     protected function personalData() {

@@ -19,7 +19,8 @@ class TPLlogin extends Template {
             $result = $this->select('documenti','users',$insertParams);
 
             if(!empty($result)) {
-                $_SESSION['successfulLogin']=$insertParams['userEmail'];
+//                $_SESSION['successfulLogin']=$insertParams['userEmail'];
+                $_SESSION['successfulLogin']=$result['userName'];
                 header("Location:?page=index");
                 exit;
             }else{
