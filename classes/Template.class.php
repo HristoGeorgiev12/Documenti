@@ -286,91 +286,99 @@ class Template {
     //Form for work experience only
     protected function workExperience() {
         ?>
-        <input type="text" autocomplete='off'
-                  name="companyName[]"
-                  pattern="[А-Яа-я]{2,30}"
-                  title="Име на компанията!"
-                  placeholder="Име на компанията"
-                  required><br>
-        <input type="text" autocomplete='off'
-                  name="companyPosition[]"
-                  pattern="[А-Яа-я]{2,30}"
-                  title="Местоположение на работодателят!"
-                  placeholder="Местоположение на работодателят"
-                  required><br>
-        <span class="spanStyle">Период:</span><br>
-        <span class="spanStyle">От</span>
-        <input type="date"
-                   name="dateFromWork[]"
-                   title=""
-                   placeholder=""
-                   required>
+        <div id="workExperience">
+            <input type="text" autocomplete='off'
+                      name="companyName[]"
+                      pattern="[А-Яа-я]{2,30}"
+                      title="Име на компанията!"
+                      placeholder="Име на компанията"
+                      required><br>
+            <input type="text" autocomplete='off'
+                      name="companyPosition[]"
+                      pattern="[А-Яа-я]{2,30}"
+                      title="Местоположение на работодателят!"
+                      placeholder="Местоположение на работодателят"
+                      required><br>
+            <span class="spanStyle">Период:</span><br>
+            <span class="spanStyle">От</span>
+            <input type="date"
+                       name="dateFromWork[]"
+                       title=""
+                       placeholder=""
+                       required>
 
-        <span class="spanStyle">До</span>
-        <input type="date"
-                   name="dateToWork[]"
-                   title=""
-                   placeholder=""
-                   required><br>
+            <span class="spanStyle">До</span>
+            <input type="date"
+                       name="dateToWork[]"
+                       title=""
+                       placeholder=""
+                       required><br>
 
-<!--         <input type="text" autocomplete='off'-->
-<!--                                name="jobType[]"-->
-<!--                                pattern="[А-Яа-я]{2,30}"-->
-<!--                                title="Име на компанията!"-->
-<!--                                placeholder="Отговорности"-->
-<!--                                required><br>-->
+    <!--         <input type="text" autocomplete='off'-->
+    <!--                                name="jobType[]"-->
+    <!--                                pattern="[А-Яа-я]{2,30}"-->
+    <!--                                title="Име на компанията!"-->
+    <!--                                placeholder="Отговорности"-->
+    <!--                                required><br>-->
 
 
 
-        <input type="text" autocomplete='off'
-                                name="jobPost[]"
-                                pattern="[А-Яа-я]{2,30}"
-                                title="Име на компанията!"
-                                placeholder="Заемана длъжност"
-                                required><br>
+            <input type="text" autocomplete='off'
+                                    name="jobPost[]"
+                                    pattern="[А-Яа-я]{2,30}"
+                                    title="Име на компанията!"
+                                    placeholder="Заемана длъжност"
+                                    required><br>
 
-        <textarea id="responsibilities" name='otherHobbies[]'
-                            placeholder="Отговарях за..."
-                             rows='3'
-                             cols='40'
-                    ></textarea>
+            <div>
+        <!--Да се синхронизира с База Данни и да се промени името на текстовото поле-->
+                <textarea id="responsibilities" name='otherHobbies[]'
+                                    placeholder="Отговарях за..."
+                                     rows='3'
+                                     cols='40'></textarea>
+            </div>
+            <input type="button" value="още" id="callResponsibilities" class="recallButton">
+        </div>
+
         <?php
     }
 
     //Form for education only;
     protected function education() {
         ?>
-        <input type="text" autocomplete='off'
-                                          name="educationInstitution[]"
-                                          title="Име на учебното заведение"
-                                          placeholder="Име на учебното заведение"><br>
+        <div id="education">
+            <input type="text" autocomplete='off'
+                  name="educationInstitution[]"
+                  title="Име на учебното заведение"
+                  placeholder="Име на учебното заведение"><br>
 
-        <span class="spanStyle">Период:</span><br>
-        <span class="spanStyle">От</span>
-        <input type="date"
-                   name="dateFromEducation[]"
-                   placeholder="">
-        <span class="spanStyle">До</span>
-        <input type="date"
+            <span class="spanStyle">Период:</span><br>
+            <span class="spanStyle">От</span>
+            <input type="date"
+                       name="dateFromEducation[]"
+                       placeholder="">
+            <span class="spanStyle">До</span>
+            <input type="date"
                    name="dateToEducation[]"
                    placeholder=""><br>
 
-        <input type="text" autocomplete='off'
-                                name="qualificationTitle[]"
-                                placeholder="Завършена специалност"><br>
+            <input type="text" autocomplete='off'
+                    name="qualificationTitle[]"
+                    placeholder="Завършена специалност"><br>
 
 
-        <select name="degreeLevel_id[]">
-            <option value="select" selected disabled>Ниво на образование</option>
-            <option value="1">Начална</option>
-            <option value="2">Основна</option>
-            <option value="3">Средна</option>
-            <option value="4">Средна специална</option>
-            <option value="5">Професионален Бакалавър</option>
-            <option value="6">Бакалавър</option>
-            <option value="7">Магистър</option>
-            <option value="8">Докторантура</option>
-        </select><br><hr>
+            <select name="degreeLevel_id[]">
+                <option value="select" selected disabled>Ниво на образование</option>
+                <option value="1">Начална</option>
+                <option value="2">Основна</option>
+                <option value="3">Средна</option>
+                <option value="4">Средна специална</option>
+                <option value="5">Професионален Бакалавър</option>
+                <option value="6">Бакалавър</option>
+                <option value="7">Магистър</option>
+                <option value="8">Докторантура</option>
+            </select><br>
+        </div>
         <?php
     }
 

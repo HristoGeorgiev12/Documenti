@@ -294,6 +294,10 @@ textarea {
     color: #ff9300;
 }
 
+.recallButton {
+    width: 20%;
+}
+
 /* Intro */
 .intro {
     margin:0 0 1.5em;

@@ -39,39 +39,39 @@ class TPLcv extends Template {
                         <div class="col-sm-6 col-lg-4 col-md-4">
                             <div class="grid-list" id="hobbiesStyle">
                                 <?php
-                                echo "<h3>Хобита и Интереси</h3>";
-                                echo $this->hobbies();
+                                    echo "<h3>Хобита и Интереси</h3>";
+                                    echo $this->hobbies();
                                 ?>
                             </div>
                         </div>
                         <div class="col-sm-6 col-lg-4 col-md-4" id="documentType">
-                            <div class="grid-list" id="workExperience">
+                            <div class="grid-list" >
                                 <?php
-                                echo "<h3>Трудов стаж</h3>";
-                                $this->workExperience();
-
+                                    echo "<h3>Трудов стаж</h3>";
+                                    $this->workExperience();
                                 ?>
 
-
-
                             </div>
-                            <input type="button" value="отговарях още за.." id="callResponsibilities">
-                            <input type="button" value="ново" id="recallWorkExperience">
+                            <input type="button" value="ново" id="recallWorkExperience" class="recallButton">
+
 <!--                            --><?php
 //                            //recall workExperience method;
 //                                $this->recallWork("workExperience",'recallWorkExperience');
 //
 //                            ?>
                         </div>
+<!--                            <input type="button" value="още" id="callResponsibilities" class="recallButton">-->
+<!--                            <input type="button" value="ново" id="recallWorkExperience" class="recallButton">-->
                         <div class="col-sm-6 col-lg-4 col-md-4">
-                            <div class="grid-list">
+                            <div class="grid-list" >
                                 <?php
                                 echo "<h3>Образование</h3>";
                                 $this->education();
                                 //recall education method;
-                                $this->recallEducation("education",'recallEducation');
+//                                $this->recallEducation("education",'recallEducation');
                                 ?>
                             </div>
+                            <input type="button" value="ново" id="recallEducation" class="recallButton">
                         </div>
                     </div>
                     <?php
@@ -103,25 +103,35 @@ class TPLcv extends Template {
 
 
         <script>
+//            add styling class to the corrisponding label of the selected chechbox
             $('#hobbiesStyle').on( 'click', 'input:checkbox', function () {
                 $( this ).next('label').addClass( '.selectedCheckBox');
                 $( this ).next('label').toggleClass( 'selectedCheckBox', this.checked);
             });
 
+//            add style to date input
             $('input[type="date"]').on( 'change', function () {
                 $( this ).addClass( 'selectedDate');
             });
 
+//            onclick recall resposibilities textarea
             $("#callResponsibilities").on('click', function(){
                 $("#responsibilities").parent().append($('#responsibilities').clone().val(''));
             });
 
+//            onclick recall workExperience form
             $("#recallWorkExperience").on('click', function(){
-                var clone = $("#workExperience").clone();
-                var clean = clone.find('input').val('');
-                clean.parent().prepend(clone);
-//                parent().prepend($('#workExperience').clone().find('input').val(''));
+                 var clone = $('#workExperience').clone();
+                 clone.find('textarea').val('');
+                 clone.find('input').val('');
+                 $('#workExperience').parent().append(clone);
+            });
 
+//            onclick recall education form
+            $("#recallEducation").on('click', function(){
+                 var clone = $('#education').clone();
+                 clone.find('input').val('');
+                 $('#education').parent().append(clone);
             });
         </script>
         <?php
