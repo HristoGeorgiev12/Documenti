@@ -7,14 +7,23 @@
  */
 
 class TPLerror extends Template {
+    protected function Style() {
+        ?>
+            <link href="css/error.css" rel="stylesheet">
+        <?php
+    }
+
     public function Title() {
         return "Errors";
     }
 
+    protected function head() {}
+
+    protected function footer() {}
+
     public function Body() {
         ?>
-            <p>Errorssssssssssssssssss</p>
-        <img src="images/404_man.jpg" alt="Error image" width="auto" height="auto">
+            <img id="errorImage" src="images/404_man.jpg" alt="Error image" width="auto" height="auto">
         <?php
     }
 }

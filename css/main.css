@@ -261,7 +261,18 @@ textarea {
     width: 38%;
 }
 
-#shareIdeasWithUsTextarea {
+#contact {
+    display: none;
+}
+
+#leaveMessage {
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+#shareIdeasWithUsTextarea,#contactMessage{
     width: 400px;
     height: 140px;
     display: block;
@@ -297,6 +308,7 @@ textarea {
 .recallButton {
     width: 20%;
 }
+
 
 /* Intro */
 .intro {

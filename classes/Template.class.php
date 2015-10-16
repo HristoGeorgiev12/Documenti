@@ -508,9 +508,16 @@ class Template {
         <!--                        <li><a href="#"> <i class="fa fa-twitter"></i> </a></li>-->
                                 <li><a href="https://github.com/HristoGeorgiev12"> <i class="fa fa-github"></i> </a> </li>
         <!--                        <li><a href="#"> <i class="fa fa-linkedin"></i> </a></li>-->
-                                <li><a href="#"> <i class="fa fa-envelope"></i> </a></li>
+                                <li><a id="envelope"> <i class="fa fa-envelope"></i> </a></li>
                             </ul>
-
+                            <div id="contact">
+                                <form id="leaveMessage" action="" method="post">
+                                    <input type="text" name="contactName" placeholder="Име" required><br>
+                                    <input type="email" name="contactMessage" placeholder="E-Mail" required><br>
+                                    <textarea id="contactMessage" name="contactMessage" placeholder="Съобщение" required></textarea>
+                                    <input type="submit" name="contactSubmit" value="Изпрати съобщението">
+                                </form>
+                            </div><br>
                             <p id="shareIdeasWithUsHead">Споделете ни идеята си.</p>
                             <textarea id="shareIdeasWithUsTextarea"></textarea>
                             <input type="submit" name="ideaSubmit" id="shareIdeasWithUsSubmit" value="Изпрати предложението">
@@ -520,6 +527,15 @@ class Template {
                     </div>
 
                 </footer>
+                <script>
+                    $(document).ready(function(){
+                        $("#envelope").click(function(){
+                            $("#contact").slideToggle("slow");
+                        });
+
+                    });
+
+                </script>
         <?php
     }
 
